@@ -1,0 +1,10 @@
+<h2 mat-dialog-title>¿ Está seguro ?</h2>
+<mat-dialog-content>
+  <p>Este proceso es irreversible</p>
+  <!-- <input matInput [(ngModel)]="animal" /> -->
+</mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Cancelar</button>
+  <span class="spacer"></span>
+  <button mat-button (click)="onConfirm()" color="warn" cdkFocusInitial>Eliminar</button>
+</mat-dialog-actions>

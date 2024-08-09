@@ -1,0 +1,77 @@
+<div class="flex flex-column p-2">
+    <h1>Buscador</h1>
+    <mat-form-field>
+      <mat-label>Buscador de héroes</mat-label>
+      <input 
+        type="text"
+        matInput
+        [formControl]="searchInput"
+        (input)="searchHero()"
+        [matAutocomplete]="auto"
+      />
+      <mat-autocomplete #auto="matAutocomplete"
+      (optionSelected)="onSelectedOption($event)">
+        <mat-option *ngFor="let hero of heroes" [value]="hero">
+          {{ hero.superhero }}
+        </mat-option>
+        <mat-option 
+        *ngIf="heroes.length===0 && searchInput.value && searchInput.value.length >0"
+        value="">
+            No se encontró nada con el término {{searchInput.value}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <div>
+        <ng-template #divLoading>
+            <mat-grid-list cols="1">
+                <mat-grid-tile>
+                    <mat-spinner></mat-spinner>
+                </mat-grid-tile>
+            </mat-grid-list>
+        </ng-template>
+        
+        <div *ngIf="selectedHero;else divLoading" class="grid p-3">
+            <mat-card class="col-12 sm:col-6">
+                <mat-card-header>
+                    <mat-card-title>
+                        {{selectedHero.alter_ego}}
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{selectedHero.superhero}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+        
+                <img [src]="selectedHero | appHeroImage" [alt]="selectedHero.superhero" mat-card-image>
+        
+        
+            </mat-card>
+        
+            <mat-card class="col-12 sm:col-6">
+                <mat-card-header>
+                    <mat-card-title>
+                        Información del héroe
+                    </mat-card-title>
+                    <mat-card-subtitle>
+                        {{selectedHero.superhero}}
+                    </mat-card-subtitle>
+                </mat-card-header>
+        
+                <mat-card-content>
+                    <mat-list>
+                        <mat-list-item>{{selectedHero.first_appearance}}</mat-list-item>
+                        <mat-list-item>{{selectedHero.characters}}</mat-list-item>
+                        <mat-list-item>{{selectedHero.publisher}}</mat-list-item>
+                        <mat-list-item>{{selectedHero.alter_ego}}</mat-list-item>
+                    </mat-list>
+            
+                </mat-card-content>
+            </mat-card>
+        
+        
+        
+        </div>
+    </div>
+    
+  </div>
+  
